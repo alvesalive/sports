@@ -1,0 +1,33 @@
+.form-container {
+    display: flex;
+    justify-content: center;
+}
+
+.form {
+    display: inline-flex;
+    width: 300px;
+    padding: 20px;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+}
+
+.form-group {
+    flex-basis: 100%;
+}
+
+label {
+    font-weight: bold;
+    flex-basis: 100%;
+}
+
+input[type="text"] {
+    flex-basis: 70%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+button {
+    flex-basis: 100%;
+    margin-top: 10px;
+}
