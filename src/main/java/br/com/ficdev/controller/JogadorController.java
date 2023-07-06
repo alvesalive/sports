@@ -44,7 +44,7 @@ public class JogadorController {
     public String updateJogador(@PathVariable Long id, Model model) {
         JogadorDTO jogador = jogadorService.obterJogadorPorId(id);
         model.addAttribute("jogador", jogador);
-        return "jogador";
+        return "jogadorupdate";
     }
 
     @GetMapping("/apagar/{id}")
