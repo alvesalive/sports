@@ -1,8 +1,6 @@
 # Aplicação:  Controle de Times
 
 
-# To Fix
-* Method Edit from Jogador
 
 # To Do
 * Show relationship @OneToOne 
