@@ -11,12 +11,12 @@ public class PageController {
 
         @GetMapping("/pagina1")
         public String getPagina1() {
-            return "teste1.html";
+            return "jogador.html";
         }
 
         @GetMapping("/pagina2")
         public String getPagina2() {
-            return "teste2.html";
+            return "jogador.html";
         }
     }
 
