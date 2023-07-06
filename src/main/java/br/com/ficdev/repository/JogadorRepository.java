@@ -6,8 +6,11 @@ import org.springframework.stereotype.Repository;
 
 import br.com.ficdev.model.Jogador;
 
+import java.util.List;
+
 @Repository
 @EnableJpaRepositories
 public interface JogadorRepository extends JpaRepository<Jogador, Long>{
 
+    List<Jogador> findByNomeContainingIgnoreCase(String nome);
 }

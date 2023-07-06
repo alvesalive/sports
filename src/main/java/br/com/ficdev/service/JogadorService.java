@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import br.com.ficdev.dto.JogadorDTO;
+import br.com.ficdev.mapper.JogadorMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,13 +46,27 @@ public class JogadorService {
     public JogadorDTO obterJogadorPorId(Long id) {
         Optional<Jogador> jogador = Optional.ofNullable(jogadorRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Jogador não encontrado com o ID: " + id)));
-        JogadorDTO jogadorDTO = new JogadorDTO(
-                jogador.get().getId(),
-                jogador.get().getNome(),
-                jogador.get().getPosicao(),
-                jogador.get().getNivelHabilidade()
-        );
-        return jogadorDTO;
+
+        //If all the fields are the same, we can use the following:
+        //return JogadorMapper.toDTO(jogador.get());
+
+        return new JogadorDTO(
+               jogador.get().getId(),
+               jogador.get().getNome(),
+               jogador.get().getPosicao(),
+               jogador.get().getNivelHabilidade()
+       );
+    }
+
+    /**
+     *
+     * @param id
+     * @param args should be "null"
+     * @return Jogador
+     */
+    public Jogador obterJogadorPorId(Long id, String args){
+        return jogadorRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Jogador não encontrado com o ID: " + id));
     }
 
     public Jogador criarJogador(Jogador jogador) {
@@ -66,11 +81,27 @@ public class JogadorService {
         jogador.setPosicao(jogadorAtualizado.getPosicao());
         jogador.setNivelHabilidade(jogadorAtualizado.getNivelHabilidade());
         jogador.setTime(jogadorAtualizado.getTime());
+
+        JogadorDTO jogadorDTO = JogadorMapper.toDTO(jogador);
+
+
         return jogadorRepository.save(jogador);
     }
 
     public void excluirJogador(Long id) {
         Jogador jogador = Jogador.fromJogadorDTO(obterJogadorPorId(id));
         jogadorRepository.delete(jogador);
+    }
+
+    public List<JogadorDTO> pesquisarJogadoresPorNome(String nome) {
+        List<Jogador> jogadores = jogadorRepository.findByNomeContainingIgnoreCase( nome);
+        return jogadores.stream()
+                .map(jogador -> new JogadorDTO(
+                        jogador.getId(),
+                        jogador.getNome(),
+                        jogador.getPosicao(),
+                        jogador.getNivelHabilidade()
+                ))
+                .collect(Collectors.toList());
     }
 }

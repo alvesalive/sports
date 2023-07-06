@@ -53,6 +53,16 @@ public class JogadorController {
         return "redirect:/jogador/listar";
     }
 
+    @GetMapping("/pesquisar")
+    public String pesquisarJogadores(@RequestParam("nome") String nome, Model model) {
+        List<JogadorDTO> jogadores = jogadorService.pesquisarJogadoresPorNome(nome);
+        model.addAttribute("jogadores", jogadores);
+        return "jogadorpesquisa";
+    }
+
+
+
+
 
 
 
@@ -94,4 +104,6 @@ public class JogadorController {
     public void excluirJogador(@PathVariable Long id) {
         jogadorService.excluirJogador(id);
     }
+
+
 }
